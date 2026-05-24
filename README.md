@@ -58,8 +58,7 @@ containerd config default | sudo tee /etc/containerd/config.toml
 
 #### SystemdCgroup aktivieren (wichtig!)
 ```
-sudo sed -i 's/SystemdCgroup = false/SystemdCgroup = true/' \
-  /etc/containerd/config.toml
+sudo sed -i 's/SystemdCgroup = false/SystemdCgroup = true/'  /etc/containerd/config.toml
 ```
 
 ```
