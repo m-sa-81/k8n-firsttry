@@ -14,8 +14,8 @@ sudo sed -i '/ swap / s/^/#/' /etc/fstab
 
 
 ### Kernel-Module laden
-overlay: Container-Dateisystem (mehrere Schichten übereinander – das macht Docker/containerd)
-br_netfilter: Netzwerkfilterung über Bridges – damit iptables auch den Container-Traffic sieht
+overlay: Container-Dateisystem (mehrere Schichten übereinander – das macht Docker/containerd)  
+br_netfilter: Netzwerkfilterung über Bridges – damit iptables auch den Container-Traffic sieht  
 
 ```
 sudo modprobe overlay
@@ -31,9 +31,9 @@ EOF
 ```
 
 ### Netzwerk-Einstellungen
-bridge-nf-call-iptables = 1Traffic der über eine Netzwerk-Bridge läuft (Container!) wird durch iptables gefiltert
-bridge-nf-call-ip6tables = 1Dasselbe für IPv6
-ip_forward = 1: Der Server darf Pakete weiterleiten (von Container A zu Container B, oder nach außen)
+bridge-nf-call-iptables = 1Traffic der über eine Netzwerk-Bridge läuft (Container!) wird durch iptables gefiltert  
+bridge-nf-call-ip6tables = 1Dasselbe für IPv6  
+ip_forward = 1: Der Server darf Pakete weiterleiten (von Container A zu Container B, oder nach außen)  
 
 ```
 cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
