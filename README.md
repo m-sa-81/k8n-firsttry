@@ -44,3 +44,25 @@ EOF
 
 sudo sysctl --system
 ```
+
+## Containerd installieren:
+
+sudo apt-get install -y containerd
+sudo mkdir -p /etc/containerd
+
+### Standardkonfiguration erstellen
+```
+sudo mkdir -p /etc/containerd
+containerd config default | sudo tee /etc/containerd/config.toml
+```
+
+#### SystemdCgroup aktivieren (wichtig!)
+```
+sudo sed -i 's/SystemdCgroup = false/SystemdCgroup = true/' \
+  /etc/containerd/config.toml
+```
+
+```
+sudo systemctl restart containerd
+sudo systemctl enable containerd
+```
