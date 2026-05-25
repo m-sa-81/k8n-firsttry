@@ -110,6 +110,21 @@ sudo kubeadm init \
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+
+kubectl get nodes
+# NAME      STATUS     ROLES           AGE
+# XYZ       NotReady   control-plane   1m
 ```
 
+
+## Netzwerk-Plugins in Kubernetes
+Das Plugin läuft als Pod auf jedem Node und kümmert sich um:  
+* IP-Vergabe an Pods  
+* Routing zwischen Nodes  
+* Netzwerkregeln (NetworkPolicies)  
+
+```
+kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/calico.yaml
+```
 
