@@ -9,7 +9,7 @@ Warum deaktivieren?
 Kubernetes verwaltet Ressourcen (RAM) sehr präzise. Es sagt einem Pod z.B. „du bekommst 512MB RAM". Wenn Swap aktiv ist, weiß Kubernetes nicht mehr genau wieviel echter RAM verfügbar ist – das bricht die Ressourcenplanung.
 ```
 sudo swapoff -a
-sudo sed -i '/swap / s/^/#/' /etc/fstab
+sudo sed -i '/swap/s/^/#/' /etc/fstab
 ```
 
 
