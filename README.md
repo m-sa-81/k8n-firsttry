@@ -15,6 +15,10 @@ Kubernetes verwaltet Ressourcen (RAM) sehr präzise. Es sagt einem Pod z.B. „d
 ```
 sudo swapoff -a
 sudo sed -i '/swap/s/^/#/' /etc/fstab
+
+cat /proc/swaps
+Filename                                Type            Size            Used            Priority
+
 ```
 
 
@@ -41,7 +45,7 @@ EOF
 **ip_forward = 1**: Der Server darf Pakete weiterleiten (von Container A zu Container B, oder nach außen)  
 
 ```
-cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+sudo cat <<EOF | sudo tee /etc/sysctl.d/99-k8s.conf
 net.bridge.bridge-nf-call-iptables  = 1
 net.bridge.bridge-nf-call-ip6tables = 1
 net.ipv4.ip_forward                 = 1
@@ -161,5 +165,14 @@ sed -i 's|192.168.0.0/16|10.244.0.0/16|' calico.yaml
 
 # Installieren
 kubectl apply -f calico.yaml
+
+kubectl get nodes
+NAME          STATUS   ROLES           AGE   VERSION
+XYZ           Ready    control-plane   36m   v1.29.15
+```
+
+## Worker nodes hinzufügen
+```
+sudo kubeadm join 192.168.0.51:6443 --token 4nmdxr.5baz738f9hlisuew         --discovery-token-ca-cert-hash sha256:b......
 ```
 
