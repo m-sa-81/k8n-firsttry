@@ -173,6 +173,6 @@ XYZ           Ready    control-plane   36m   v1.29.15
 
 ## Worker nodes hinzufügen
 ```
-sudo kubeadm join 192.168.0.51:6443 --token 4nmdxr.5baz738f9hlisuew         --discovery-token-ca-cert-hash sha256:b......
+sudo kubeadm join 192.168.0.51:6443 --token ...         --discovery-token-ca-cert-hash sha256:b......
 ```
 
