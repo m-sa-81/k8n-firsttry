@@ -9,7 +9,7 @@ Warum deaktivieren?
 Kubernetes verwaltet Ressourcen (RAM) sehr präzise. Es sagt einem Pod z.B. „du bekommst 512MB RAM". Wenn Swap aktiv ist, weiß Kubernetes nicht mehr genau wieviel echter RAM verfügbar ist – das bricht die Ressourcenplanung.
 ```
 sudo swapoff -a
-sudo sed -i '/ swap / s/^/#/' /etc/fstab
+sudo sed -i '/swap / s/^/#/' /etc/fstab
 ```
 
 
@@ -54,7 +54,7 @@ sudo mkdir -p /etc/containerd
 ### Standardkonfiguration erstellen
 ```
 sudo mkdir -p /etc/containerd
-containerd config default | sudo tee /etc/containerd/config.toml
+sudo  containerd config default | sudo tee /etc/containerd/config.toml
 ```
 
 #### SystemdCgroup aktivieren (wichtig!)
@@ -88,9 +88,20 @@ sudo apt-get update
 sudo apt-get install -y kubelet kubeadm kubectl
 
 # Version einfrieren (kein automatisches Update)
+Kubernetes hat eine sehr strenge Versionskompatibilitätsregel: der Control Plane (API-Server) und die Nodes (kubelet) dürfen maximal eine Minor-Version auseinanderliegen.
+Wenn also apt upgrade einfach kubelet von 1.29 auf 1.31 zieht, während der API-Server noch auf 1.29 läuft, ist der Cluster kaputt — der Node meldet sich nicht mehr an.
+
 sudo apt-mark hold kubelet kubeadm kubectl
 
 sudo systemctl enable kubelet
 ```
+
+
+## Cluster initialisieren (Control Node)
+
+sudo kubeadm init \
+  --pod-network-cidr=10.244.0.0/16 \
+  --apiserver-advertise-address=<IP-des-Control-Plane> \
+  --cri-socket=unix:///run/containerd/containerd.sock
 
 
