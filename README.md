@@ -1,6 +1,11 @@
 # k8n-firsttry
 First try with k8n cluster
 
+Mögliche Optionen:  
+* [Minikube](https://minikube.sigs.k8s.io/docs/)
+* [KIND - Kubernetes in Docker](https://kind.sigs.k8s.io/)
+* containerd
+
 
 ## Vorbereitung Nodes:
 
@@ -146,5 +151,15 @@ Cilium – modern und sehr leistungsfähig
 
 ```
 kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/calico.yaml
+
+#Wenn CIDR ändern:
+# Calico-Manifest herunterladen
+curl -O https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/calico.yaml
+
+# CIDR anpassen
+sed -i 's|192.168.0.0/16|10.244.0.0/16|' calico.yaml
+
+# Installieren
+kubectl apply -f calico.yaml
 ```
 
