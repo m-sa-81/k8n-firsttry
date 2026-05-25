@@ -46,9 +46,10 @@ sudo sysctl --system
 ```
 
 ## Containerd installieren:
-
+```
 sudo apt-get install -y containerd
 sudo mkdir -p /etc/containerd
+```
 
 ### Standardkonfiguration erstellen
 ```
@@ -65,3 +66,31 @@ sudo sed -i 's/SystemdCgroup = false/SystemdCgroup = true/'  /etc/containerd/con
 sudo systemctl restart containerd
 sudo systemctl enable containerd
 ```
+
+## kubeadm, kubelet, kubectl installieren :
+
+```
+sudo apt-get install -y apt-transport-https ca-certificates curl
+
+sudo mkdir -p -m 755 /etc/apt/keyrings
+
+# Kubernetes GPG-Key
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | \
+  sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes.gpg
+
+# Repository hinzufügen
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes.gpg] \
+  https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /" | \
+  sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+# Installieren
+sudo apt-get update
+sudo apt-get install -y kubelet kubeadm kubectl
+
+# Version einfrieren (kein automatisches Update)
+sudo apt-mark hold kubelet kubeadm kubectl
+
+sudo systemctl enable kubelet
+```
+
+
