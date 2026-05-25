@@ -122,7 +122,27 @@ kubectl get nodes
 Das Plugin läuft als Pod auf jedem Node und kümmert sich um:  
 * IP-Vergabe an Pods  
 * Routing zwischen Nodes  
-* Netzwerkregeln (NetworkPolicies)  
+* Netzwerkregeln (NetworkPolicies)
+
+Die wichtigsten Plugins  
+Flannel – simpel und bewährt    
+* Einfachstes Plugin, leicht zu verstehen
+* Baut ein flaches Netzwerk über alle Nodes (Overlay-Netzwerk)
+* Keine NetworkPolicies unterstützt
+* Gut für Testumgebungen
+* Standard-CIDR: 10.244.0.0/16
+
+Calico – mächtig und weit verbreitet  
+* Unterstützt NetworkPolicies (Firewall-Regeln zwischen Pods)
+* Kein Overlay nötig – nutzt echtes IP-Routing
+* Auch in Produktion sehr beliebt
+* Standard-CIDR: 192.168.0.0/16
+
+Cilium – modern und sehr leistungsfähig  
+* Nutzt eBPF (sehr effizienter Linux-Kernel-Mechanismus)
+* Sehr gutes Monitoring und Observability
+* Komplexer aber zukunftssicher
+* Wird immer populärer
 
 ```
 kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/calico.yaml
