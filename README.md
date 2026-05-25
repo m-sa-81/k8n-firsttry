@@ -98,10 +98,18 @@ sudo systemctl enable kubelet
 
 
 ## Cluster initialisieren (Control Node)
-
+```
 sudo kubeadm init \
   --pod-network-cidr=10.244.0.0/16 \
   --apiserver-advertise-address=<IP-des-Control-Plane> \
   --cri-socket=unix:///run/containerd/containerd.sock
+```
+
+## kubectl einrichten (Control Node)
+```
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
 
 
