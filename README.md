@@ -174,6 +174,12 @@ XYZ           Ready    control-plane   36m   v1.29.15
 ```
 
 ## Worker nodes hinzufügen
+
+Neuen Tiken auf dem Controll-plane erstellen
+```
+kubeadm token create --print-join-command
+```
+Worker node hinzufügen:
 ```
 sudo kubeadm join 192.168.0.51:6443 --token ...         --discovery-token-ca-cert-hash sha256:b......
 ```
